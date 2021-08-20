@@ -1,0 +1,31 @@
+<meta charset='utf-8'>
+<script>
+    let counter = 2;
+    function simpleNumber(counter){
+        // К сожалению это функция будет правильно работать только если её аргумент(counter) наименьшее простое число
+        let arrSimpleNumber = []
+        while (counter < 101){
+            // Логика проста, если число (counter) не делится на цело ни на одно из чисел списка arrS.. то оно тоже простое
+            //  такое правило есть в математике
+            // к сожалению решение не оптимальное, О(n^2) но зато свое :)
+            if (arrSimpleNumber.length == 0){
+                arrSimpleNumber.push(counter)
+            }else {
+                let counterCheck = 0
+                for (let i in arrSimpleNumber){
+                    if (counter % arrSimpleNumber[i] == 0){
+                        break;
+                    }else {
+                        counterCheck ++;
+                    }
+                }
+                if (counterCheck == arrSimpleNumber.length){
+                    arrSimpleNumber.push(counter);
+                }
+            }
+            counter++;
+        }
+        return arrSimpleNumber;
+    }
+    alert(simpleNumber(counter));
+</script>

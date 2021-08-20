@@ -1,0 +1,24 @@
+<meta charset='utf-8'>
+<script>
+    function mathOperation(arg1, arg2, operation='+'){
+        if (typeof arg1 != 'number' || typeof arg2 != 'number' ){
+            /** на случай если аргументы arg1 and arg2 не числа
+             * || !(operation in ['+', '-', '/', '*']) хотел ещё так сделать но не сработало
+             */
+            return 'You entered not a number or operation not correct'
+        }
+        switch (operation){
+            case '-':
+            return arg1 - arg2;
+            case '/':
+                return (arg1 != 0) ? arg1 / arg2 : 'Zero division error';
+            case '*':
+                return arg1 * arg2;
+            default:
+                return arg1 + arg2
+            }
+        }
+    userNumber1 = +prompt('Please entered number one')
+    userNumber2 = +prompt('Please tntered number two')
+    alert(mathOperation(userNumber1, userNumber2, prompt('Please entered arithmetic operation')))
+</script>
