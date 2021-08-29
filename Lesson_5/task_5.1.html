@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1 class='Hi'>Hello World</h1>
+    <meta charset='utf-8'>
+    <title>ChessBoard</title>
+    <style>
+        .Hi {
+           text-align: center;
+        }
+        #dask {
+            text-align: center;
+        }
+    </style>
+    
+</head>
+<body onload='chessBoard.createTable()' id='dask'>
+</body>
+</html>
+
+
+
+
+<script type="text/javascript">
+let chessBoard = {
+    createTable(){
+        let poz = document.getElementById('dask');
+        let tab = document.createElement('table');
+        poz.appendChild(tab);
+
+        tab.border = '25';
+        for (let i = 0; i < 9; i++){
+            // Create row and insert into document
+            let row = tab.insertRow(i);
+            for (let j = 0; j < 9; j++){
+                // Create cell and fill with data 
+                let cell = row.insertCell(j);
+                cell.innerHTML = '';
+                if (j == 0){
+                    cell.innerHTML = i;
+                }else if(i == 0){
+                    cell.innerHTML = this.checkLetter(j);
+                }else{
+                    cell.innerHTML = '';
+                };
+
+                if ((i+j) % 2 == 0){
+                        if (i == 0 || j == 0){
+                        cell.style.background = 'white';
+                    }else{
+                        cell.style.backgroundColor = 'black';
+                    }
+                    }else{
+                    cell.style.backgroundColor = 'white'
+                    };
+                cell.style.color = 'black';
+                cell.style.height = '25px';
+                cell.style.width = '25px';
+                
+            };
+        };
+    },
+    
+    checkLetter(param){
+        // Это костыль, но после 30 мин поисков в гугл я остановился на этом
+            switch(param){
+            case 1:
+                return 'A';
+            case 2:
+                return 'B';
+            case 3:
+                return 'C';
+            case 4:
+                return 'D';
+            case 5:
+                return 'E';
+            case 6:
+                return 'F';
+            case 7:
+                return 'G';
+            case 8:
+                return 'H';
+            };
+        }
+}
+</script>    
