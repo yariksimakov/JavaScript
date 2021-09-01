@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shop</title>
+        <meta charset='utf-8'>
+        <style>
+            .catalog {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style='text-align: center'>Catalog</h2>
+        <div class='catalog'></div>
+        <h2 style='text-align: center;'>Basket</h2>
+        <div class='basket'></div>
+
+        <script>
+            let shopDataCatalog = {
+                elementCatalog: document.querySelector('.catalog'),
+                shopCatalog: {product1: [5, 400], product2: [8, 200], product3: [3, 750]},
+                
+                init(){
+                    this.elementCatalog.innerHTML = this.addStringCatalog();
+                    this.elementCatalog.addEventListener('click', (event) => {
+                        if (event.target.tagName === 'DIV') return;
+
+                        const nameProduct = event.target.className;
+                        if (this.checkContentShop(nameProduct)) return;
+                        this.shopRemoveProduct(nameProduct);
+                        // this вызов объекта корзина
+                        // console.log(event.target);
+                        shopDataBasket.init(nameProduct)
+                    });
+                    this.elementCatalog.style.background = 'grey';
+                    this.elementCatalog.style.color = 'white';
+                },
+
+                addStringCatalog(){
+                    let totalHTMLstring = '';
+                    if (Object.keys(this.shopCatalog).length === 0 ) totalHTMLstring = 'Basket is empty';
+                    for (const key in this.shopCatalog){
+                        totalHTMLstring += `<div> Product - ${key}
+                            Count elements - ${this.shopCatalog[key][0]}
+                            full cost one element - ${this.shopCatalog[key][1]}$</div> <button class=${key}>By ${key}</button>`;
+                    };
+                    return totalHTMLstring;
+                },
+
+                shopRemoveProduct(nameProduct){
+                    this.shopCatalog[nameProduct] = [this.shopCatalog[nameProduct][0]-1, this.shopCatalog[nameProduct][1]];
+                    this.elementCatalog.innerHTML = this.addStringCatalog();
+                },
+
+                shopAddProduct(nameProduct){
+                    this.shopCatalog[nameProduct] = [this.shopCatalog[nameProduct][0]+1, this.shopCatalog[nameProduct][1]];
+                    this.elementCatalog.innerHTML = this.addStringCatalog();
+                },
+
+                
+                checkContentShop(elemName){
+                    if (this.shopCatalog[elemName][0] === 0) return true;
+                    return false;
+                }
+            }
+
+            shopDataCatalog.init();
+
+            
+            let shopDataBasket = {
+                auxiliaryObject: {},
+                shopUserBasket: {},
+                elementBasket: document.querySelector('.basket'),
+
+                init(nameProduct){
+                    this.addUserBasket(nameProduct)
+                    this.elementBasket.innerHTML = this.addStringBasket();
+                    
+                },
+
+                clickBasketremove(){
+                    this.elementBasket.addEventListener('click', (event) => {
+                        if (event.target.tagName === 'DIV') return;
+                        const nameProductBasket = event.target.className;
+                        if (this.checkContentBasket(nameProductBasket)) return;
+                        this.basketRemoveProduct(nameProductBasket);
+                        shopDataCatalog.shopAddProduct(nameProductBasket);
+                    })
+                },
+
+                removeDivBasket(nameRemove){
+                    document.querySelector(`#${nameRemove}`).remove();
+
+                },
+
+                basketRemoveProduct(nameProduct){
+                    this.auxiliaryObject[nameProduct][0] = this.auxiliaryObject[nameProduct][0] - 1;
+                    this.shopUserBasket[nameProduct] = [this.auxiliaryObject[nameProduct][0], this.priceProduct(nameProduct)];
+                    this.elementBasket.innerHTML = this.addStringBasket();
+                },
+
+                addUserBasket(nameProduct){
+                    if (!Object.keys(this.auxiliaryObject).includes(`${nameProduct}`)) {
+                        this.auxiliaryObject[nameProduct] = [1, shopDataCatalog.shopCatalog[nameProduct][1]];
+                    }else{
+                        this.auxiliaryObject[nameProduct][0] +=1;
+                    }
+                    this.shopUserBasket[nameProduct] = [this.auxiliaryObject[nameProduct][0], this.priceProduct(nameProduct)]
+                },
+                
+                priceProduct(param){
+                    return this.auxiliaryObject[param][0] * this.auxiliaryObject[param][1];
+                },
+
+                addStringBasket(){
+                    let totalHTMLstring = '';
+                    for (const key in this.shopUserBasket){
+                        totalHTMLstring += `<div id=${key}>Product - ${key} 
+                            Count elements - ${this.shopUserBasket[key][0]} 
+                            full cost order ${this.shopUserBasket[key][1]} <button class=${key}>Remov element</button></div>`;
+                    }
+                    return totalHTMLstring;
+                },
+
+                checkContentBasket(elemName){
+                    if (this.shopUserBasket[elemName][0] === 0){
+                        this.removeDivBasket(elemName);
+                        delete(this.auxiliaryObject[elemName]);
+                        delete(this.shopUserBasket[elemName]);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            // я написал это как обработчик click в init его пихать нельзя, будет не коректно работать
+            shopDataBasket.clickBasketremove();
+        </script>
+    </body>
+</html>
