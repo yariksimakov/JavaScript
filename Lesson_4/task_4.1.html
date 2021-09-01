@@ -1,0 +1,32 @@
+<meta charset='utf-8'>
+<script>
+    let userNumber = prompt('Please entered number for 0 to 999');
+
+    let checkParsing = {
+        userNumber, 
+        checkNumber(param){
+            if (param > 999 || param < 0) {
+                return false;
+            }else {
+                return true;
+            }
+        },
+        parsingNumber(stringToSplit=this.userNumber){
+            if (this.checkNumber(+stringToSplit)) {
+                if (stringToSplit.length === 3){
+                    return {hundreds: stringToSplit[0], 
+                    dozens: stringToSplit[1], 
+                    units: stringToSplit[2]};
+                }else {
+                    return (stringToSplit.length === 2) ? {hundreds: 0, 
+                    dozens: stringToSplit[0], 
+                    units: stringToSplit[1]} : {hundreds: 0, dozens: 0, units: stringToSplit[0]};
+                }
+                    
+            }else {
+                return 'You entered the wrong number';
+            }
+        }
+    }
+    console.log(checkParsing.parsingNumber())
+</script>
