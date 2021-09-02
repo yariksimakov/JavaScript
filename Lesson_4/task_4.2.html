@@ -1,17 +1,22 @@
 <meta charset='utf-8'>
 <script>
     let shopCounter = {
-        shop: {product1: [5, 400], product2: [8, 200], product3: [3, 750]},
-        coutBasketPrice(resultNumber=0){
-            for (const prop in this.shop){
-                resultNumber += this.shop[prop][0] * this.shop[prop][1];
-            };
-            return resultNumber;
+        shop: [
+            {name: 'product1',
+            price: 400,
+            count: 5},
+            {name: 'product2',
+            price: 200,
+            count: 8},
+            {name: 'product3',
+            price: 750,
+            count: 3}
+        ],
+
+        countBasketPrice(){
+            return this.shop.reduce((total=0, amount) => {return total + amount['price'] * amount['count']}, 0);
         }
-    };
-    let start = shopCounter;
-    console.log(start.coutBasketPrice(0));
-    // start.shop = {product1: [5, 400]}; это я побаловался
-    // console.log(start.coutBasketPrice(0));
+    }
+    console.log(shopCounter.countBasketPrice());
 
 </script>

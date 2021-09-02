@@ -1,6 +1,6 @@
 <meta charset='utf-8'>
 <script>
-    let userNumber = prompt('Please entered number for 0 to 999');
+    let userNumber = +prompt('Please entered number for 0 to 999');
 
     let checkParsing = {
         userNumber, 
@@ -12,19 +12,18 @@
             }
         },
         parsingNumber(stringToSplit=this.userNumber){
-            if (this.checkNumber(+stringToSplit)) {
-                if (stringToSplit.length === 3){
-                    return {hundreds: stringToSplit[0], 
-                    dozens: stringToSplit[1], 
-                    units: stringToSplit[2]};
-                }else {
-                    return (stringToSplit.length === 2) ? {hundreds: 0, 
-                    dozens: stringToSplit[0], 
-                    units: stringToSplit[1]} : {hundreds: 0, dozens: 0, units: stringToSplit[0]};
+            if (this.checkNumber(stringToSplit)) {
+                let arrayNumber = []
+                for (let i=0; i<3; i++){
+                    arrayNumber.push(stringToSplit % 10);
+                    stringToSplit = parseInt(stringToSplit / 10);
                 }
-                    
+                return {hundreds: arrayNumber[2], 
+                    dozens: arrayNumber[1], 
+                    units: arrayNumber[0]};
             }else {
-                return 'You entered the wrong number';
+                console.log('You entered the wrong number')
+                return {};
             }
         }
     }
