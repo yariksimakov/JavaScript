@@ -1,0 +1,37 @@
+<meta charset='utf-8'>
+<script>
+    function sumMy(a,b){
+        return a+b;
+    }
+    function subMy(a,b){
+        return a*b;
+    }
+    function deductionMy(a,b){
+        return a-b;
+    }
+    function division(a,b){
+        return (a != 0) ? a/b : 'Zero division error';
+    }
+
+    function mathOperation(arg1, arg2, operation='+'){
+        if (typeof arg1 != 'number' || typeof arg2 != 'number' ){
+            /** на случай если аргументы arg1 and arg2 не числа
+             * || !(operation in ['+', '-', '/', '*']) хотел ещё так сделать но не сработало
+             */
+            return 'You entered not a number or operation not correct'
+        }
+        switch (operation){
+            case '-':
+            return deductionMy(arg1, arg2);
+            case '/':
+                return division(arg1, arg2);
+            case '*':
+                return subMy(arg1, arg2);
+            default:
+                return sumMy(arg1, arg2);
+            }
+        }
+    userNumber1 = +prompt('Please entered number one');
+    userNumber2 = +prompt('Please tntered number two');
+    alert(mathOperation(userNumber1, userNumber2, prompt('Please entered arithmetic operation')));
+</script>

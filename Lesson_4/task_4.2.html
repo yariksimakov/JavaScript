@@ -1,0 +1,22 @@
+<meta charset='utf-8'>
+<script>
+    let shopCounter = {
+        shop: [
+            {name: 'product1',
+            price: 400,
+            count: 5},
+            {name: 'product2',
+            price: 200,
+            count: 8},
+            {name: 'product3',
+            price: 750,
+            count: 3}
+        ],
+
+        countBasketPrice(){
+            return this.shop.reduce((total=0, amount) => {return total + amount['price'] * amount['count']}, 0);
+        }
+    }
+    console.log(shopCounter.countBasketPrice());
+
+</script>

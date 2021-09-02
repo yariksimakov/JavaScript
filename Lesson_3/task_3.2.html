@@ -1,0 +1,16 @@
+<meta charset='utf-8'>
+<script>
+    let shop = [['product1', 5, 400], ['product2', 8, 200], ['product3', 3, 750]];
+    function  countBasketPrice(arr){
+        /** Подозреваю что для улучшения кода можно использовать reduce 
+         * но когда я читал про него то не смог в полной мере понять его
+         */ 
+        let sum = 0;
+        for (let arList in arr){
+            sum += arr[arList][1] * arr[arList][2];
+            
+        }
+        return sum;
+    }
+    alert(countBasketPrice(shop));
+</script>
