@@ -1,0 +1,17 @@
+<meta charset='utf-8'>
+<script>
+    let shopCounter = {
+        shop: {product1: [5, 400], product2: [8, 200], product3: [3, 750]},
+        coutBasketPrice(resultNumber=0){
+            for (const prop in this.shop){
+                resultNumber += this.shop[prop][0] * this.shop[prop][1];
+            };
+            return resultNumber;
+        }
+    };
+    let start = shopCounter;
+    console.log(start.coutBasketPrice(0));
+    // start.shop = {product1: [5, 400]}; это я побаловался
+    // console.log(start.coutBasketPrice(0));
+
+</script>

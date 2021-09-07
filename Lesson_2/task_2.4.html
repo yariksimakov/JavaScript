@@ -1,0 +1,16 @@
+<meta charset='utf-8'>
+<script>
+    let numberArray = [];
+    let maxCount = 15;
+    let userNumber = +prompt('Please entered number start');
+    switch(userNumber){
+        case NaN:
+            alert('YOU ENTERED NOT A NUMBER');
+            break;
+        default:
+            for (let i = userNumber; i <= maxCount; ++i){
+                numberArray.push(i);
+            }
+    }
+    alert(numberArray);
+</script>

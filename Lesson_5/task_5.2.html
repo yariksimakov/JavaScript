@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shop</title>
+        <meta charset='utf-8'>
+        <style>
+            #bodyOne {
+                text-align: center
+            }
+        </style>
+    </head>
+    <body id='bodyOne'>
+        <div class='dask'></div>
+        
+        <button id='btn'>Clear all</button><br>
+    </body>
+</html>
+
+
+<script type='text/javascript'>
+    let shopData = {
+        shop: {product1: [5, 400], product2: [8, 200], product3: [3, 750]},
+        daskInformation(){
+            const poz = document.querySelector('.dask');
+            let totalHTMLstring = ''
+            if (Object.keys(this.shop).length === 0 ) totalHTMLstring = 'Basket is empty';
+            for (const param in this.shop){
+                totalHTMLstring += `<div> Product - ${param}
+                    Count elements - ${this.shop[param][0]}
+                    full cost - ${this.priceOneProduct(param)}$</div>`
+            };
+            poz.innerHTML = totalHTMLstring;
+            poz.style.background = 'grey';
+            poz.style.color = 'white';
+        },
+
+        addShopProduct(key='product4', val=[2, 20]){
+            this.shop[key]=val;
+            this.daskInformation();
+        },
+
+        priceOneProduct(param){
+            return this.shop[param][0] * this.shop[param][1];
+        },
+
+        clickButton(event){
+            const poz = document.querySelector('.dask');
+            poz.innerHTML = 'Basket is empty';
+        }
+    }
+
+    shopData.daskInformation();
+    const click = document.getElementById('btn');
+    click.addEventListener('click', shopData.clickButton);
+    shopData.addShopProduct();
+    
+
+</script>
