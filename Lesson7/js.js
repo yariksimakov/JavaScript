@@ -96,7 +96,7 @@ const map = {
         snakePointsArray.forEach((point, index) => {
             const cellKey = `x${point.x}_y${point.y}`;
             const snakeCell = this.cells[cellKey];
-
+            console.log(this.cells);
             snakeCell.classList.add(index === 0 ? 'snakeHead' : 'snakeBody');
             this.usedCells.push(snakeCell);
         });
@@ -213,13 +213,13 @@ const snake = {
 
         switch (this.direction) {
             case 'up':
-                return {x: firstPoint.x, y: (firstPoint.y !== 0) ? firstPoint.y - 1 : this.maxY};
+                return {x: firstPoint.x, y: firstPoint.y !== 0 ? firstPoint.y - 1 : this.boardY};
             case 'right':
-                return {x: (firstPoint.x !== this.maxX) ? firstPoint + 1 : 0, y: firstPoint.y};
+                return {x: firstPoint.x !== this.boardX ? firstPoint + 1 : 0, y: firstPoint.y};
             case 'down':
-                return {x: firstPoint.x, y: (firstPoint.y !== this.maxY) ? firstPoint + 1 : 0};
+                return {x: firstPoint.x, y: firstPoint.y !== this.boardY ? firstPoint + 1 : 0};
             case 'left':
-                return {x: (firstPoint.x !== 0) ? firstPoint - 1 : this.maxX, y: firstPoint.y};
+                return {x: firstPoint.x !== 0 ? firstPoint - 1 : this.boardY, y: firstPoint.y};
         }
     },
 };
@@ -324,9 +324,7 @@ const game = {
         document.getElementById('newGameButton').addEventListener('click', () => {
             this.newGameClickHandler();
         });
-        document.addEventListener('keydown', event => {
-            this.keyDownHandler(event);
-        })
+        document.addEventListener('keydown', event => this.keyDownHandler(event))
     },
 
     reset() {
@@ -441,9 +439,11 @@ const game = {
     tickHandler() {
         if (!this.canMakeStep()) return this.stop();
 
-        if (this.obstacles.isOnPoint(this.snake.getNextHeadPoint())) return this.finish();
+        const nextStepsnake = this.snake.getNextHeadPoint();
+        if (this.obstacles.isOnPoint(nextStepsnake)) return this.finish();
 
-        if (this.food.isOnPoint(this.snake.getNextHeadPoint())) {
+        
+        if (this.food.isOnPoint(nextStepsnake)) {
             this.snake.growUp();
             this.countFood.increment();
             this.food.setCoordinates(this.getRandomFreeCoordinates());
