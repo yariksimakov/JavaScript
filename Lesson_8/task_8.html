@@ -1,0 +1,79 @@
+<script>
+    //  console.log(sum(a,b,...n); // => a + b + ... + n
+    function sum(...param){
+        return param.reduce((total, element) => { return total + element}, 0);
+    };
+
+    console.log(sum(1,2,3,4,5))
+
+    // console.log(sum(a)(b)...(n)()); // => a + b + ... + n
+    function add(x){
+        return function (y){ 
+            if (typeof y !== 'undefined'){
+                // console.log(x, y)
+                x += y;
+                return add(x);
+            }else {
+                return x;
+            }
+        }
+    };
+    console.log(add(5)(6)(7)());
+
+   //  console.log(sum(a)(b)...(n)); // => a + b + ... + n
+    function add(x) {
+        const addNext = function(y){
+            return add(x+y);
+        }
+
+        addNext.valueOf = function(){
+            // тут я не доконца понимаю что делает метод valueOf ?
+            return x
+        }
+        return addNext;
+    }
+
+    console.log(add(1)(2)(3)==6);//true
+    console.log(add(1)(2)(3)(4)==10);//true
+    console.log(add(5)(6)(7));
+
+// *************************** task 2 ********************************
+
+    if (!("a" in window)) {
+    var a = 1;
+    }
+        alert(a);
+// alert выведит 1, так как "a" не объект windiw
+
+
+        
+    var b = function a(x) {
+        x && a(--x);
+    };
+    alert(a);
+// alert выведит 1, так как ранее мы опредили а=1, чтобы вызвалась функция надо писать так a() 
+
+
+    function a(x) {
+        return x * 2;
+    }
+    var a;
+    alert(a);
+// undefined из за var a;
+
+
+    function b(x, y, a) {
+        arguments[2] = 10;
+        alert(a);
+    }
+    b(1, 2, 3);
+// 10 arguments[2]=10; переопределить
+
+
+    function a() {
+        alert(this);
+    }
+    a.call(null);
+// window, не уверен но пологике null объет window, претпологаю что привяжется window
+
+</script>
